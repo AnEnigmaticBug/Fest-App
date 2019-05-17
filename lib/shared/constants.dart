@@ -1,0 +1,1 @@
+const String baseUrl = 'https://bits-apogee.org/2019';
