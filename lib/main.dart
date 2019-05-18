@@ -23,6 +23,7 @@ class FestApp extends StatelessWidget {
       title: 'Fest App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        fontFamily: 'GoogleSans',
       ),
       home: EventsScreen(repository: repository),
     );
