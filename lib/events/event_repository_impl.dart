@@ -146,15 +146,15 @@ class EventRepositoryImpl extends EventRepository {
            WHERE eventId = ?
         ''', [eventId]);
 
-        final spots = spotRows.map((row) => Spot(name: row['name'])).toList();
+        final spots = spotRows.map((row) => Spot(name: row['spotName'])).toList();
 
         final typeRows = await txn.rawQuery('''
-          SELECT spotName
-            FROM EventAndSpot
+          SELECT typeName
+            FROM EventAndType
            WHERE eventId = ?
         ''', [eventId]);
 
-        final types = typeRows.map((row) => Type(name: row['name'])).toList();
+        final types = typeRows.map((row) => Type(name: row['typeName'])).toList();
 
         final event = Event(
             id: eventId,
