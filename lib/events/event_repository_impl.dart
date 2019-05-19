@@ -17,6 +17,8 @@ class EventRepositoryImpl extends EventRepository {
   final _typesSubject = BehaviorSubject<List<Type>>.seeded([]);
   final _filterSubject = BehaviorSubject<Filter>();
 
+  final _eventsCache = Map<int, Event>();
+
   EventRepositoryImpl({@required Database db, @required EventApi eventApi})
       : _db = db,
         _eventApi = eventApi {
@@ -56,6 +58,26 @@ class EventRepositoryImpl extends EventRepository {
     if (count == 0) {
       throw NotInDataSourceException();
     }
+
+    final filter = _filterSubject.value;
+
+    if (filter.showOnlyStarred && !starred) {
+      _eventsCache.remove(eventId);
+    } else if (_eventsCache.containsKey(eventId)) {
+      _eventsCache[eventId] = Event(
+        id: eventId,
+        name: _eventsCache[eventId].name,
+        about: _eventsCache[eventId].about,
+        rules: _eventsCache[eventId].rules,
+        spots: _eventsCache[eventId].spots,
+        types: _eventsCache[eventId].types,
+        dateTime: _eventsCache[eventId].dateTime,
+        duration: _eventsCache[eventId].duration,
+        isStarred: starred,
+      );
+    }
+
+    _eventsSubject.add(_eventsCache.values.toList());
 
     await _triggerEvents();
   }
@@ -130,6 +152,8 @@ class EventRepositoryImpl extends EventRepository {
 
   Future<void> _triggerEvents() async {
     await _db.transaction((txn) async {
+      _eventsCache.clear();
+
       final eventRows = await txn.rawQuery('''
         SELECT *
           FROM Event
@@ -146,7 +170,8 @@ class EventRepositoryImpl extends EventRepository {
            WHERE eventId = ?
         ''', [eventId]);
 
-        final spots = spotRows.map((row) => Spot(name: row['spotName'])).toList();
+        final spots =
+            spotRows.map((row) => Spot(name: row['spotName'])).toList();
 
         final typeRows = await txn.rawQuery('''
           SELECT typeName
@@ -154,7 +179,8 @@ class EventRepositoryImpl extends EventRepository {
            WHERE eventId = ?
         ''', [eventId]);
 
-        final types = typeRows.map((row) => Type(name: row['typeName'])).toList();
+        final types =
+            typeRows.map((row) => Type(name: row['typeName'])).toList();
 
         final event = Event(
             id: eventId,
@@ -168,6 +194,7 @@ class EventRepositoryImpl extends EventRepository {
             isStarred: eventRow['isStarred'] == 1);
 
         if (_filterSubject.value.allows(event)) {
+          _eventsCache[event.id] = event;
           result.add(event);
         }
       }
