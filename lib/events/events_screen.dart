@@ -5,6 +5,7 @@ import 'package:fest_app/events/event_repository.dart';
 import 'package:fest_app/events/event_tile.dart';
 import 'package:fest_app/events/models.dart';
 import 'package:fest_app/shared/bottom_navigation.dart';
+import 'package:fest_app/shared/screen_title.dart';
 
 class EventsScreen extends StatelessWidget {
   final EventRepository repository;
@@ -22,7 +23,7 @@ class EventsScreen extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(20.0),
-                child: _ScreenTitle(),
+                child: ScreenTitle(title: 'Events'),
               ),
               Expanded(child: _PageSwitcher()),
             ],
@@ -34,13 +35,6 @@ class EventsScreen extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class _ScreenTitle extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Text('Events', style: TextStyle(fontSize: 32.0));
   }
 }
 
