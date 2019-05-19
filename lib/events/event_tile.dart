@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:fest_app/events/event_repository.dart';
+import 'package:fest_app/events/event_sheet.dart';
 import 'package:fest_app/events/models.dart';
 import 'package:fest_app/events/star_button.dart';
 import 'package:fest_app/shared/util.dart';
@@ -40,7 +41,12 @@ class EventTile extends StatelessWidget {
           ],
         ),
       ),
-      onTap: () {},
+      onTap: () {
+        showModalBottomSheet(
+          context: context,
+          builder: (context) => EventSheet(event: event),
+        );
+      },
     );
   }
 }
