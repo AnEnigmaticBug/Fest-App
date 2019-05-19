@@ -62,7 +62,9 @@ class _OptionsList extends StatelessWidget {
         _MoreOption(
           title: 'Developers',
           backgrounColor: Colors.pinkAccent,
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).pushNamed('/developers');
+          },
         ),
       ],
     );
