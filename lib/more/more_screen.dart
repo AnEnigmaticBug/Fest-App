@@ -52,12 +52,16 @@ class _OptionsList extends StatelessWidget {
         _MoreOption(
           title: 'Sponsors',
           backgrounColor: Colors.deepOrangeAccent,
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).pushNamed('/sponsors');
+          },
         ),
         _MoreOption(
           title: 'EPC Blog',
           backgrounColor: Colors.blueGrey,
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).pushNamed('/blog');
+          },
         ),
         _MoreOption(
           title: 'Developers',

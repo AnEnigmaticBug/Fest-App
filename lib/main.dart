@@ -4,9 +4,11 @@ import 'package:fest_app/events/event_api.dart';
 import 'package:fest_app/events/event_repository_impl.dart';
 import 'package:fest_app/events/events_screen.dart';
 import 'package:fest_app/more/about_screen.dart';
+import 'package:fest_app/more/blog_screen.dart';
 import 'package:fest_app/more/contacts_screen.dart';
 import 'package:fest_app/more/developers_screen.dart';
 import 'package:fest_app/more/more_screen.dart';
+import 'package:fest_app/more/sponsors_screen.dart';
 import 'package:fest_app/shared/database_helper.dart';
 
 void main() async {
@@ -36,6 +38,8 @@ class FestApp extends StatelessWidget {
         '/about': (context) => AboutScreen(),
         '/contacts': (context) => ContactsScreen(),
         '/developers': (context) => DevelopersScreen(),
+        '/blog': (context) => BlogScreen(),
+        '/sponsors': (context) => SponsorsScreen(),
       },
     );
   }
