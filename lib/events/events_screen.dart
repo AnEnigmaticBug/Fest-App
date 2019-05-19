@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:fest_app/events/event_repository.dart';
+import 'package:fest_app/events/event_tile.dart';
 import 'package:fest_app/events/models.dart';
-import 'package:fest_app/events/star_button.dart';
 import 'package:fest_app/shared/bottom_navigation.dart';
 
 class EventsScreen extends StatelessWidget {
@@ -154,16 +154,7 @@ class _EventList extends StatelessWidget {
     return ListView.builder(
       itemCount: events.length,
       itemBuilder: (context, index) {
-        return ListTile(
-          title: Text(events[index].name),
-          trailing: StarButton(
-            isStarred: events[index].isStarred,
-            onToggled: (wasStarred) {
-              Provider.of<EventRepository>(context).setStarredStatus(
-                  eventId: events[index].id, starred: !wasStarred);
-            },
-          ),
-        );
+        return EventTile(event: events[index]);
       },
     );
   }
