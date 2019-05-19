@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fest_app/events/event_api.dart';
 import 'package:fest_app/events/event_repository_impl.dart';
 import 'package:fest_app/events/events_screen.dart';
+import 'package:fest_app/more/more_screen.dart';
 import 'package:fest_app/shared/database_helper.dart';
 
 void main() async {
@@ -25,7 +26,11 @@ class FestApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: 'GoogleSans',
       ),
-      home: EventsScreen(repository: repository),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => EventsScreen(repository: repository),
+        '/more': (context) => MoreScreen(),
+      },
     );
   }
 }

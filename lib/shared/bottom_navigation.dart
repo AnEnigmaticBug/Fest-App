@@ -38,12 +38,34 @@ class _BottomNavigationState extends State<BottomNavigation> {
         _bottomNavigationItem('Events', 'images/event.png'),
         _bottomNavigationItem('More', 'images/more.png'),
       ],
-      onTap: (index) {
-        setState(() {
-          currentIndex = index;
-        });
-      },
+      onTap: _handleTap,
     );
+  }
+
+  void _handleTap(int index) {
+    if (index == currentIndex) {
+      return;
+    }
+
+    String routeName;
+    switch (index) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+        routeName = '/';
+        break;
+      case 4:
+        routeName = '/more';
+        break;
+    }
+
+    if (currentIndex == 3) {
+      Navigator.of(context).pushNamed(routeName);
+      return;
+    }
+
+    Navigator.of(context).pushReplacementNamed(routeName);
   }
 
   BottomNavigationBarItem _bottomNavigationItem(
