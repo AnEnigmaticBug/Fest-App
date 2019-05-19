@@ -45,7 +45,9 @@ class _OptionsList extends StatelessWidget {
         _MoreOption(
           title: 'Contacts',
           backgrounColor: Colors.indigoAccent,
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).pushNamed('/contacts');
+          },
         ),
         _MoreOption(
           title: 'Sponsors',

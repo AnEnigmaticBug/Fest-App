@@ -4,6 +4,7 @@ import 'package:fest_app/events/event_api.dart';
 import 'package:fest_app/events/event_repository_impl.dart';
 import 'package:fest_app/events/events_screen.dart';
 import 'package:fest_app/more/about_screen.dart';
+import 'package:fest_app/more/contacts_screen.dart';
 import 'package:fest_app/more/more_screen.dart';
 import 'package:fest_app/shared/database_helper.dart';
 
@@ -32,6 +33,7 @@ class FestApp extends StatelessWidget {
         '/': (context) => EventsScreen(repository: repository),
         '/more': (context) => MoreScreen(),
         '/about': (context) => AboutScreen(),
+        '/contacts': (context) => ContactsScreen(),
       },
     );
   }
